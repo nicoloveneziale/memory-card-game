@@ -1,32 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import Card from "./components/Card";
 import logo from "./assets/imgs/Peep_Show_logo.jpg";
-import markImg from "./assets/imgs/Mark.png";
-import jezImg from "./assets/imgs/Jez.png";
-
-const characters = [
-  {
-    name: "Mark",
-    img: markImg,
-  },
-  {
-    name: "Jez",
-    img: jezImg,
-  },
-];
+import CardDisplay from "./components/CardDisplay";
+("./components/CardDisplay");
 
 function App() {
   const [clicked, setClicked] = useState({});
-  const [gameStarted, setGameStarted] = useState(false);
-  const [cardsToRender, setCardsToRender] = useState([]);
+  let gameStarted = false;
 
-  function addToClicked(name) {
-    clicked.has(name) ? handleWrongClick() : setClicked({ ...clicked, name });
-  }
-
-  function startGame(cards) {
-    setGameStarted(true);
+  function startGame(numberOfCards) {
+    gameStarted = true;
   }
 
   return (
@@ -45,13 +28,10 @@ function App() {
             <button onClick={() => startGame(8)}>Medium</button>
             <button onClick={() => startGame(10)}>Hard</button>
           </div>
-          <div
-            id="cards-div"
-            style={{ display: gameStarted ? "flex" : "none" }}
-          >
-            {cardsToRender.map((card) => card)}
-          </div>
         </div>
+        <CardDisplay
+          style={{ display: gameStarted ? "none" : "flex" }}
+        ></CardDisplay>
       </div>
       <footer>Made by Nicolo Veneziale</footer>
     </>

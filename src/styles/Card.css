@@ -1,3 +1,32 @@
-img {
+.card {
+  margin: 2vw;
+  background: none;
+  border: none;
+  position: relative;
+  width: 20vh;
   height: 26vh;
+  transition: scale ease-in-out 0.5s 0s;
+}
+
+.card p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  text-align: center;
+  -webkit-text-stroke: 1.3px rgb(0, 0, 0);
+  font-weight: 900;
+}
+
+.card img {
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: #010101 0px 0px 20px;
+}
+
+.card:hover {
+  scale: 110%;
 }

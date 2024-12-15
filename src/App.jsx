@@ -5,11 +5,40 @@ import CardDisplay from "./components/CardDisplay";
 ("./components/CardDisplay");
 
 function App() {
-  const [clicked, setClicked] = useState({});
-  let gameStarted = false;
+  const [gameVisible, setGameVisible] = useState(false);
+  const [cardDisplay, setCardDisplay] = useState(null);
+  const [endGameDisplay, setEndGameDisplay] = useState(null);
 
-  function startGame(numberOfCards) {
-    gameStarted = true;
+  function startGame(numberOfCards, numberOfRounds) {
+    setGameVisible(true);
+    setCardDisplay(
+      <CardDisplay
+        gameVisible={gameVisible}
+        numberOfCards={numberOfCards}
+        numberOfRounds={numberOfRounds}
+        handleFinalClick={handleFinalClick}
+      ></CardDisplay>,
+    );
+  }
+
+  function handleFinalClick(numClicked, numCards) {
+    setCardDisplay(null);
+    setEndGameDisplay(
+      <div id="game-overview">
+        {numCards == numClicked ? <h1>You win!</h1> : <h1>Unlucky!</h1>}
+        <h2>
+          {numClicked}/{numCards}
+        </h2>
+        <button
+          onClick={() => {
+            setEndGameDisplay(null);
+            setGameVisible(false);
+          }}
+        >
+          Continue
+        </button>
+      </div>,
+    );
   }
 
   return (
@@ -17,21 +46,20 @@ function App() {
       <div id="main">
         <div
           id="start-screen"
-          style={{ display: gameStarted ? "none" : "flex" }}
+          style={{ display: gameVisible ? "none" : "flex" }}
         >
           <div id="logo-div">
             <img src={logo} alt="logo" id="logo" />
             <h1>The Peep Show Memory Game</h1>
           </div>
           <div id="start-div">
-            <button onClick={() => startGame(6)}>Easy</button>
-            <button onClick={() => startGame(8)}>Medium</button>
-            <button onClick={() => startGame(10)}>Hard</button>
+            <button onClick={() => startGame(3, 5)}>Easy</button>
+            <button onClick={() => startGame(5, 7)}>Medium</button>
+            <button onClick={() => startGame(10, 10)}>Hard</button>
           </div>
         </div>
-        <CardDisplay
-          style={{ display: gameStarted ? "none" : "flex" }}
-        ></CardDisplay>
+        {cardDisplay}
+        {endGameDisplay}
       </div>
       <footer>Made by Nicolo Veneziale</footer>
     </>

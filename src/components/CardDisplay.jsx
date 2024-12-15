@@ -9,6 +9,8 @@ import dobImg from "../assets/imgs/Dob.png";
 import johnsonImg from "../assets/imgs/Johnson.png";
 import sophImg from "../assets/imgs/Soph.png";
 import superImg from "../assets/imgs/Super_hans.png";
+import darylImg from "../assets/imgs/Dar.png";
+import gogImg from "../assets/imgs/Gog.png";
 
 const characters = [
   {
@@ -43,16 +45,32 @@ const characters = [
     name: "Super Hans",
     img: superImg,
   },
+  {
+    name: "Daryl",
+    img: darylImg,
+  },
+  {
+    name: "Gog",
+    img: gogImg,
+  },
 ];
 
-export default function CardDisplay() {
+export default function CardDisplay({
+  gameVisible,
+  numberOfCards,
+  numberOfRounds,
+  handleFinalClick,
+}) {
   const [cards, setCards] = useState([]);
   const [clicked, setClicked] = useState([]);
 
   function addToClicked(name) {
     clicked.includes(name)
-      ? handleWrongClick()
+      ? handleFinalClick(clicked.length, numberOfRounds)
       : setClicked([...clicked, name]);
+    if (clicked.length == numberOfRounds - 1) {
+      handleFinalClick(clicked.length, numberOfRounds);
+    }
   }
 
   function getRandomCard() {
@@ -61,7 +79,7 @@ export default function CardDisplay() {
 
   useEffect(() => {
     const newCards = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < numberOfCards; i++) {
       let newCard = getRandomCard();
       while (newCards.includes(newCard)) {
         newCard = getRandomCard();
@@ -72,15 +90,20 @@ export default function CardDisplay() {
   }, [clicked]);
 
   return (
-    <div id="card-display">
-      {cards.map((card, index) => (
-        <Card
-          key={index}
-          name={card.name}
-          img={card.img}
-          addToClicked={addToClicked}
-        ></Card>
-      ))}
+    <div id="card-display" style={{ display: gameVisible ? "flex" : "hidden" }}>
+      <div id="cards-div">
+        {cards.map((card, index) => (
+          <Card
+            key={index}
+            name={card.name}
+            img={card.img}
+            addToClicked={addToClicked}
+          ></Card>
+        ))}
+      </div>
+      <h1>
+        {clicked.length}/{numberOfRounds}
+      </h1>
     </div>
   );
 }

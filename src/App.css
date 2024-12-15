@@ -14,6 +14,10 @@
   justify-content: space-between;
 }
 
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
 #main {
   display: flex;
   align-items: centser;

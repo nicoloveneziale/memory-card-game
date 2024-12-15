@@ -36,6 +36,10 @@
     width: 16vh;
     height: 22vh;
   }
+
+  .card p {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 560px) {

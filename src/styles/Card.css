@@ -30,3 +30,17 @@
 .card:hover {
   scale: 110%;
 }
+
+@media (max-width: 768px) {
+  .card {
+    width: 16vh;
+    height: 22vh;
+  }
+}
+
+@media (max-width: 560px) {
+  .card {
+    width: 14vh;
+    height: 16vh;
+  }
+}

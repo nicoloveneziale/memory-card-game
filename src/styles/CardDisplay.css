@@ -14,3 +14,15 @@ card-div {
   width: 90vw;
   height: 40vh;
 }
+
+@media (max-width: 768px) {
+  #card-display {
+    margin-top: 2.5vh;
+  }
+}
+
+@media (max-width: 560px) {
+  #card-display {
+    margin-top: 1vh;
+  }
+}
